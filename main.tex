@@ -112,6 +112,8 @@
 \usepackage[obeyFinal,colorinlistoftodos]{todonotes}
 \usepackage{courier}
 \usepackage{nameref}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage{soul}
 
 % create "+" rule type for thick vertical lines
 \newcolumntype{+}{!{\vrule width 2pt}}
@@ -214,13 +216,15 @@ Charles Ofria\textsuperscript{1,2,3}%\ddag}
 % Please keep the abstract below 300 words
 \section*{Abstract}
 Genetic spaces are often described in terms of fitness landscapes or genotype-to-phenotype maps, where each genetic sequence is associated with phenotypic properties and linked to other genotypes that are a single mutational step away.  The positions close to a genotype make up its ``mutational landscape'' and, in aggregate, determine the short-term evolutionary potential of a population.
-Populations with wider ranges of phenotypes in their mutational neighborhood are known to be more evolvable. Likewise, those with fewer phenotypic changes available in their local neighborhoods are more mutationally robust. Here, we examine whether forces that change the distribution of phenotypes available by mutation profoundly alter subsequent evolutionary dynamics.
-
-We compare evolved populations of digital organisms that were subject to either static or cyclically-changing environments.  For each of these, we examine diversity of the phenotypes that are produced through mutations in order to characterize the local genotype-phenotype map.
+Populations with wider ranges of phenotypes in their mutational neighborhood are known to be more evolvable. Likewise, those with fewer phenotypic changes available in their local neighborhoods are more mutationally robust. Here, we examine whether forces that change the distribution of phenotypes available by mutation profoundly alter subsequent evolutionary dynamics. We compare evolved populations of digital organisms that were subject to either static or cyclically-changing environments.  For each of these, we examine diversity of the phenotypes that are produced through mutations in order to characterize the local genotype-phenotype map.
 We demonstrate that environmental change can push populations toward more evolvable mutational landscapes where many alternate phenotypes are available, though purely deleterious mutations remain suppressed.
 Further, we show that populations in environments with harsh changes switch phenotypes more readily than those in environments with more benign changes. We trace this effect to repeated population bottlenecks in the harsh environments, which result in shorter coalescence times and keep populations in regions of the mutational landscape where the phenotypic shifts in question are more likely to occur. 
 Typically, static environments select solely for immediate optimization, at the expensive of long-term evolvability.
 In contrast, we show that with changing environments, short-term pressures to deal with immediate challenges can align with long-term pressures to explore a more productive portion of the mutational landscape. 
+
+\section*{Author Summary}
+Cyclic environmental change can occur in many different timescales; from slow changes such as glacial cycles, to faster seasonal change, to the day-night cycle. All populations and organisms are exposed to changing environments, and understanding their effect on evolutionary trajectories is crucial to predicting the effects of change on living populations. We used a computational evolution system to explore the effects of different kinds of fluctuating environments on the genetic architectures of populations of evolving digital organisms. We found that not only do fluctuating environments profoundly change the genetic architectures of populations, but they make them more able to not only adapt to previously seen environmental conditions, but also make them more apt to discover new adaptations in entirely new environments. Fluctuating environments make populations more evolvable, and thus more able to adapt to new environmental change.
+
 \linenumbers
 
 % Use "Eq" instead of "Equation" for equation citations.
@@ -268,7 +272,7 @@ Further, response to selection is likely to be weaker in regions of the landscap
 %=assessing mutational landscapes: D_g
 Assessing the qualities of the nearby mutational landscape requires measures that can relate phenotypes and their fitness effects with the probabilities that these mutants will arise in the population. For the purposes of this paper, we define the organism phenotype as being the set of logical tasks performed by an organism. Phenotype contributes to fitness, but fitness is a distinctly calculated value. In order to assess the relative neutrality of the nearby mutational network, we will measure the \textbf{Genomic Diffusion Rate} $D_g$ \cite{ofria_evolution_2002}. This rate approximates the overall rate at which the population encounters new neutral genotypes.
 %=how to calculate D_g
-To measure the \textbf{Genomic Diffusion Rate} ($D_g$) in the local neighborhood of a genotype, we first calculated its \textit{Fidelity} ($F$), or the probability of an offspring sharing this genotype with its parent.  Given a uniform mutation rate, Fidelity is the probability that a single locus is not mutated, ($1-\mu)$, raised to the power of the genome length ($l$)\footnote{For simplicity, these measures are calculated based on the probability of single mutations occurring. However, in nature, multiple mutations may occur at once. We performed parallel experiments using a sampling approach (which could collect multiple mutations) to calculate similar metrics. These experiments yielded qualitatively similar results to those in this paper. See Section 1\ref{ss:sampled_nearby} of the supplemental materials.}.
+To measure the \textbf{Genomic Diffusion Rate} ($D_g$) in the local neighborhood of a genotype, we first calculated its \textit{Fidelity} ($F$), or the probability of an offspring sharing this genotype with its parent.  Given a uniform mutation rate, Fidelity is the probability that a single locus is not mutated, ($1-\mu)$, raised to the power of the genome length ($l$). For simplicity, these measures are calculated based on the probability of single mutations occurring. However, in nature, multiple mutations may occur at once. We performed parallel experiments using a sampling approach (which could collect multiple mutations) to calculate similar metrics. These experiments yielded qualitatively similar results to those in this paper. See Section 1\ref{ss:sampled_nearby} of the supplemental materials.
 
 
 Next, we measured the proportion of one-step mutants that were neutral or beneficial when compared to the parent ($p_\nu$) as well as those that were detrimental or lethal ($p_d$), which must sum to one ($p_\nu + p_d = 1$).  The \textit{Neutral Fidelity} ($F_\nu$) of a genotype is thus the probability that no harmful mutations occur, assuming no epistasis. Finally, subtracting Fidelity from Neutral Fidelity yields the overall probability of producing an offspring with a different genotype, yet neutral or better fitness ($D_g$).
@@ -363,11 +367,13 @@ Finally, we can precisely and perfectly map the mutational landscape around the 
 
 \subsubsection*{Avida Digital Evolution Platform}
 %=Avida for doing these experiments
-We used Avida~\cite{lenski_evolutionary_2003} to examine the effects of cyclic changing environments on the genomes of evolved digital organisms. Avida is a software platform for performing evolution experiments with digital organisms in a virtual world.
-
+We used Avida~\cite{lenski_evolutionary_2003} to examine the effects of cyclic changing environments on the genomes of evolved digital organisms. Avida is a software platform for performing evolution experiments with digital organisms in a virtual world. 
+%\begin{mdframed}[hidealllines=true,backgroundcolor=yellow,innerleftmargin=3pt,innerrightmargin=3pt,leftmargin=-3pt,rightmargin=-3pt]
+The Avida system has been used in hundreds of studies---both in purely computational contexts, and also as companions to biological studies---to examine important questions in evolutionary theory. For example, Avida was used to perform initial experiments that demonstrate the Survival of the Flattest effect\cite{wilke_evolution_2001}, where in environments with high mutation rates, populations that replicate more slowly, and are more mutationally robust tend to out-compete less robust, faster-replicating populations. These experiments were then expanded upon in a wet-lab setting using phage\cite{codoner_fittest_2006}. Studies like this demonstrate that experiments performed in Avida have the potential to produce results relevant to evolutionary biology at large.
+%\end{mdframed}
 %=[FIGURE - Avida CPU]
 \begin{figure}[!h]
-\includegraphics[width=0.65\columnwidth]{figures/methods/squishedCPU_extra.png}
+\includegraphics[width=0.65\columnwidth]{figures/methods/fig1.eps}
 \caption{{\bf An example virtual CPU from Avida}, with a circular genome (blue), three registers (purple), input and output handlers (tan), and an instruction pointer (yellow) indicating the next instruction to be executed~\cite{canino-koning_evolution_2016}.%
 }\label{fig:cpu}
 \end{figure}
@@ -485,7 +491,7 @@ In addition to counting the number of unique task discovered, we also measure ta
 
 %=the organisms
 \subsubsection*{Experimental System}
-For all of the experiments described in this paper, we held the individual genomes at a fixed length of 121\footnote{As part of our initial controls, we hand-wrote an organism with separated sections that performed \texttt{XOR} and \texttt{EQU}. This hand-written organism had 121 instructions and, as such, we used this genome length as a constraint for the evolved organisms as well.} instructions, but tested the new genomes for mutations after each successful replication event at a substitution probability of 0.00075 per site. 
+For all of the experiments described in this paper, we held the individual genomes at a fixed length of 121 instructions, but tested the new genomes for mutations after each successful replication event at a substitution probability of 0.00075 per site. As part of our initial controls, we hand-wrote an organism with separated sections that performed \texttt{XOR} and \texttt{EQU}. This hand-written organism had 121 instructions and, as such, we used this genome length as a constraint for the evolved organisms as well.
 
 We configured the Avida world to have local interactions on a toroidal grid that is 60-by-60 cells (3600 cells in total), and we seeded the initial populations with an ancestor that was previously evolved to perform \texttt{XOR} and \texttt{EQU} under a static reward. The genetic architecture for performing \texttt{XOR} and \texttt{EQU} is tightly intertwined in this ancestral organism, as it was evolved with no selective pressure for modularity.
 
@@ -510,11 +516,11 @@ We also show that while harsh changing environments are better at promoting shor
 We begin by examining the characteristics of populations evolved in cyclic changing environments.
 
 \subsubsection*{Performance of \texttt{EQU}}
-Each population was seeded with organisms that performed both the \texttt{EQU} fluctuating task, and the \texttt{XOR} backbone task. We measured the execution of the \texttt{EQU} task, and observed that in the static control treatment, \texttt{EQU} is fixed in the population and remains so throughout the run. In contrast, we observed a periodic dip in the execution of \texttt{EQU} in the benign changing environment during the non-rewarded phase of the cycle, followed by a rapid recovery when rewards are reinstated. Finally, in the harsh treatment, we observed abrupt disappearance of \texttt{EQU} performance, followed by rapid recoveries, coinciding with phases of reward and punishment. As expected, these results suggest that the populations are responding to the selective pressures to perform \texttt{EQU} when it is rewarded, and to lose functionality when it is not rewarded or when it is punished.
+Each population was seeded with organisms that performed both the \texttt{EQU} fluctuating task, and the \texttt{XOR} backbone task. We measured the execution of the \texttt{EQU} task (Fig~\ref{fig:CCE_equ_execution}), and observed that in the static control treatment, \texttt{EQU} is fixed in the population and remains so throughout the run. In contrast, we observed a periodic dip in the execution of \texttt{EQU} in the benign changing environment during the non-rewarded phase of the cycle, followed by a rapid recovery when rewards are reinstated. Finally, in the harsh treatment, we observed abrupt disappearance of \texttt{EQU} performance, followed by rapid recoveries, coinciding with phases of reward and punishment. As expected, these results suggest that the populations are responding to the selective pressures to perform \texttt{EQU} when it is rewarded, and to lose functionality when it is not rewarded or when it is punished.
 
 %=[FIGURE - functional vs vestigial sites]
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_equ_execution.png}
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig2.eps}
 	\caption{\textbf{Number of organisms performing \texttt{EQU} task}. We measured the execution of the \texttt{EQU} task in all treatments. In the benign treatment, we observed increasing periodic dips in execution that coincide with phases of non-reward as the experiments progressed. In the harsh treatment, we observed adaptation, resulting in abrupt disappearance of \texttt{EQU} in the punishment phase, followed by rapid recovery of \texttt{EQU} performance during the reward phase. This result suggests that, over time, populations became more apt at rapidly gaining and losing EQU as a response to changing selective pressures.
 	}
 	\label{fig:CCE_equ_execution} %% FIGURE 5
@@ -526,11 +532,11 @@ We then surveyed the evolutionary history and population structure of the evolvi
 
 	%=[FIGURE - flamegraph]
 	\begin{figure}[!h]
-	\includegraphics[trim={-0.88cm 0 0.25cm 0},clip,width=0.65\columnwidth]{figures/CE/control__phylodepth_with_coalescense.png}
+	\includegraphics[trim={-0.88cm 0 0.25cm 0}, clip,width=0.85\columnwidth]{figures/CE/fig3a.eps}
 
-	\includegraphics[trim={0.2cm 0 0.25cm 0},clip,width=0.65\columnwidth]{figures/CE/benign__phylodepth_with_coalescense.png}
+	\includegraphics[trim={0.2cm 0 0.25cm 0},clip,width=0.85\columnwidth]{figures/CE/fig3b.eps}
 	
-	\includegraphics[trim={-0.63cm 0 0.25cm 0},clip,width=0.65\columnwidth]{figures/CE/harsh__phylodepth_with_coalescense.png}
+	\includegraphics[trim={-0.63cm 0 0.25cm 0},clip,width=0.85\columnwidth]{figures/CE/fig3c.eps}
 	\caption{\textbf{Phylogenetic depth over time} of a sample population evolved in each of the three treatments of the cyclic changing environments. White horizontal lines mark the depth of the most recent common ancestor, and discontinuities in this line indicate that the most recent common ancestor has changed, and thus that a sweep occurred, or that a competing clade went extinct. The control treatments had a mean of 18 sweeps (STD=9.05), the benign treatments had a mean of 21 (STD=19.05), and the harsh treatments had a mean of 88 sweeps (STD=23.37). Note the difference in scales between y-axes: the control-evolved population has a maximum depth of 400 mutational steps from ancestor, while the harsh-evolved has upward of 1100. %
 	}\label{fig:flamegraph}
 	\end{figure}
@@ -540,13 +546,13 @@ The populations that evolved in the control and benign environments displayed mo
 
 
 	\begin{figure}[!h]
-	\includegraphics[width=0.75\columnwidth]{figures/CE/by_site_entropy}
+	\includegraphics[width=0.75\columnwidth]{figures/CE/fig4.eps}
 	\caption{\textbf{Per-site entropy over time} of a representative sample population. Each vertical slice represents the per-site entropy of the population at each update by genetic locus. Hotter colors (red/orange/yellow) indicate greater diversity at this locus, while cooler colors (blues) indicate that a locus is more consistent across the population. These data indicates that in harsher changing environments, per-site diversity was much lower than in benign or static environments.   
 	}\label{fig:by-site-entropy}
 	\end{figure}
 
 	\begin{figure}[!h]
-	\includegraphics[width=0.75\columnwidth]{figures/CE/population_entropy}
+	\includegraphics[width=0.75\columnwidth]{figures/CE/fig5.eps}
 	\caption{\textbf{Population entropy over time} of the representative sample population in Figure~\ref{fig:by-site-entropy}. Mean population entropy indicates the relative diversity of the population at any given time, while the per-site entropy (see Fig~\ref{fig:by-site-entropy}) shows where in the genomes the population diversity is located.  These data indicate that in harsher changing environments, as in per-site diversity (above), overall population diversity was much lower than in benign or static environments.
 	}\label{fig:population-entropy}
 	\end{figure}
@@ -558,20 +564,20 @@ The populations that evolved in the control and benign environments displayed mo
 The alternating selection in both benign and harsh changing environments results in qualitatively different architectural styles as compared with those genomes evolved in the static environment. The task arrangements evolved under both experimental treatments are much more scattered throughout the genome than in the control, which is tightly compacted. Specifically, the bulk of the sites responsible for performing the fluctuating task (\texttt{EQU}) did not overlap with the backbone task (\texttt{XOR}), except for a small core region, which represents portions of the tasks that are shared between \texttt{XOR} and \texttt{EQU}. That is, in the changing environment treatments, we see many more sites that only code for a single task, whereas in the static treatment, the majority of functional tasks sites code for both \texttt{XOR} and \texttt{EQU}. (See Figs~\ref{fig:lineage-control}, \ref{fig:lineage-benign}, and \ref{fig:lineage-harsh})
 
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/CE/control__whole_taskmap.png}
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig6.eps}
 	\caption{\textbf{Genetic architecture of \texttt{XOR} and \texttt{EQU} over time in static environment} for the final dominant genotype in a randomly selected replicate. Starting from the ancestor on the left, each vertical slice represents an organism along the line of descent to the final dominant.
 	Positions along the Y-axis represent each genome locus; loci in an organism are colored based on the tasks that they currently (or previously) code for. Sites in \textbf{red} are active sites that code for the \texttt{XOR} task only, sites in \textbf{blue} code for the \texttt{EQU} task only, and \textbf{purple} sites code for both. Sites in black are critical for organism replication. Sites in the lighter colors (tan, light blue, lavender) represent vestigial sites, unchanged since they previously coded for \texttt{XOR} only, \texttt{EQU} only, or both tasks, respectively. As we proceed from left to right, we can see the evolutionary history of the final dominant genotype. \texttt{XOR} and \texttt{EQU} overlap almost completely throughout the run. This kind of genetic architecture is typical of purely directional selection, where a population has stabilized around a fitness peak.}
 	\label{fig:lineage-control}
 	\end{figure}
 
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/CE/benign__whole_taskmap.png}
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig7.eps}
 	\caption{\textbf{Genetic architecture of \texttt{XOR} and \texttt{EQU} over time in benign environment} for the final dominant genotype in a randomly selected replicate. Proceeding from the left of each figure, each vertical slice represents an organism along the line-of-descent to the final dominant, and as in Figure~\ref{fig:lineage-control}, colors represent tasks performed by each genome locus. In this genome, \texttt{XOR} and \texttt{EQU} evolve to overlap much less than in the control.  In contrast to the control (above), because fitness peaks are changing over time, more functional mutations are accepted.}
 	\label{fig:lineage-benign}
 	\end{figure}
 
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/CE/harsh__whole_taskmap.png}
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig8.eps}
 	\caption{\textbf{Genetic architecture of \texttt{XOR} and \texttt{EQU} over time in harsh environment} for the final dominant genotype in a randomly selected replicate. Proceeding from the left of each figure, each vertical slice represents an organism along the line-of-descent to the final dominant, and as in Figures~\ref{fig:lineage-control} and \ref{fig:lineage-benign}, colors represent tasks performed by each genome locus. In this genome, \texttt{XOR} and \texttt{EQU} evolve to overlap even less than in the control and benign treatments, with the \texttt{EQU}-only task sites becoming increasingly scattered throughout the genome. In contrast to both the control and benign environments (above), the harsh changes in selective pressure promote the adoption of many more mutations, and result in a much different genetic architecture.}
 	\label{fig:lineage-harsh}
 	\end{figure}
@@ -586,7 +592,7 @@ Interestingly, populations evolved in both the benign and harsh treatments also 
 
 %=[FIGURE - functional vs vestigial sites]
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_func_vest__box.png}
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig9.eps}
 	\caption{\textbf{Number of functional and vestigial sites by treatment}. Both the benign and harsh changing environments had significantly more sites devoted to performing only the \texttt{EQU} function (Wilcoxon Rank Sum Test: Z = -5.57 and -6.96, respectively, p $<<$ 0.001). The harsh environment has a significantly larger number of vestigial sites for the fluctuating (EQU) task compared to the benign treatment or control (Wilcoxon Rank-Sum Z = -6.57 and -8.33, p $<<$ 0.001).
 	}
 	\label{fig:CCE_func_vestigial} %% FIGURE 5
@@ -598,7 +604,7 @@ In order to identify the role that these longer task footprints and pseudogene-l
 
 %=[FIGURE - Frac 1-step]
 	\begin{figure}[!h] %% FIGURE 6
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_frac_1step__box.png}
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig10.eps}
 	\caption{\textbf{A survey of the single-step mutational neighborhood} around organisms that performed the fluctuating task. Note that in both the benign and harsh treatments, there were significantly more mutants that lost the \texttt{EQU} task as compared to the control (Wilcoxon Rank Sum Test: Z = -5.46 and -7.80 respectively, p $<<$ 0.001). This result indicates that it was easier for the organisms in both treatments to turn off the \texttt{EQU} task in response to one mutation. 
 	}\label{fig:CCE_single_step}
 	\end{figure}
@@ -723,8 +729,8 @@ However, is increased task length enough to account for increased task vulnerabi
 	\end{table}
 
 %=[FIGURE - Frac 1-step vs task length]
-	\begin{figure}[!h] %% FIGURE 6
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_frac_1step_vs_func_sites.png}
+	\begin{figure}[!h] %% 
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig11.eps}
 	\caption{\textbf{Correlation between task length and mutational task loss} in the 1-step neighborhood across all treatments. Note the strong correlation between the length of the \texttt{EQU} task and the fraction of mutants that lost \texttt{EQU} (Spearman's Rho: $r_s$ = 8.72, p $<<$ 0.001). Further, consider the weaker correlation between \texttt{XOR} task length, and fraction of mutants that lost \texttt{XOR}. These data suggest that \texttt{EQU} is even less robust to mutation compared to \texttt{XOR} than can be accounted for by task length alone.  
 	}\label{fig:CCE_func_vs_single_step}
 	\end{figure}	
@@ -733,8 +739,8 @@ Further, the lower correlation between length and task loss for the \texttt{XOR}
 
 We then measured the proportion of second step mutants that regained \texttt{EQU} after having lost it in the single-step survey. We found that changing environments shifted the populations' position in the mutational landscape, such that when a task that was lost due to mutation, that task could be regained via one or two additional mutations elsewhere. That is, once a mutation caused the loss of a task, a different mutation could reactivate the task. (Fig~\ref{fig:CCE_two_step}). 
 
-	\begin{figure}[!h] %% FIGURE 7
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_frac_2step__box.png}
+	\begin{figure}[!h] %% 
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig12.eps}
 	\caption{\textbf{A survey of the two-step mutational neighborhood} of the organisms that lost \texttt{EQU} function in the one-step survey. We found that in both the harsh and benign treatments, there were significantly more organisms that regained function in response to mutation than the control. (Wilcoxon Rank Sum Test: Z = -47.9 and -57.82 respectively, p $<<$ 0.001). This result indicates that it was easier for the organisms in both fluctuating environments to regain the task in response to one additional, non-reversion mutation.   
 	}\label{fig:CCE_two_step}
 	\end{figure}
@@ -750,8 +756,8 @@ We speculate that this effect is due to the availability of reservoirs of former
 As an overall measure of neutral exploration, we also measured the proportion of non-deleterious mutants in the nearby fitness landscape - the Genomic Diffusion Rate. We found that this proportion remained approximately the same between all treatments (Kruskal-Wallis: H(2) = 1.44, p = 0.49). However, we found that the Phenotypic Diffusion Rate, the proportion of these mutants with different (and potentially adaptive) phenotypes, increased in the changing environment treatments as compared to the controls (Wilcoxon Rank Sum Test: Z = -8.02, -8.39, respectively, p $<<$ 0.001). In this way, the organisms from the changing environment treatments have an advantage over organisms from the control runs in the short-term evolvability of the fluctuating task. This result is consistent with real adaptation, not only to resources in their local environment, but a direct adaptation to the environmental change. (Fig~\ref{fig:CCE_diffusion_rate})
 
 %=[FIGURE D_g D_p]
-	\begin{figure}[!h] %% FIGURE 8
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_D_g_D_p__box.png}
+	\begin{figure}[!h] %% 
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig13.eps}
 	\caption{\textbf{Genomic and phenotypic diffusion rates}, showing the probabilities of producing offspring that are genotypically ($D_g$) or phenotypically ($D_p$) distinct from the parent, while not reducing fitness.
 	Note that while overall neutral exploration capacity remains relatively stable between treatments (Kruskal-Wallis: H(2) = 1.44, p = 0.49), phenotypic exploration capacity is increased in both treatments, but especially in the Harsh treatment. (Wilcoxon Rank Sum Test: Z = -8.02, -8.39, respectively, p $<<$ 0.001). This result is consistent with changing environments promoting the phenotypic evolvability of populations.
 	}\label{fig:CCE_diffusion_rate}
@@ -759,8 +765,8 @@ As an overall measure of neutral exploration, we also measured the proportion of
 What might account for this adaptation? Similar to the relationship between the number of functional sites of a task, and the number of single-step mutants that lost that task (see Fig~\ref{fig:CCE_func_vs_single_step}), we hypothesize that the reacquisition of tasks in the 2nd-step survey may be mediated by the amount of useful task material present in the genome. We performed a multiple linear regression, predicting the mean fraction of mutants that regained \texttt{EQU}, by the number of functional and vestigial sites contained in the original genome (see Table~\ref{ce-olsregression-2ndstep} and Fig~\ref{fig:CCE_2step_vs_func_vest_sites}).
 
 	%=[FIGURE 2nd-Step ~ Func + Vest]
-	\begin{figure}[!h] %% FIGURE 8
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_2step_vs_func_vest_sites.png}
+	\begin{figure}[!h] %% 
+	\includegraphics[width=0.95\columnwidth]{figures/CE/fig14.eps}
 	\caption{\textbf{Multiple linear regression predicting mean fraction of second-step mutants} from the number of functional and vestigial sites in the original organism. See Table~\ref{ce-olsregression-2ndstep}.
 	}\label{fig:CCE_2step_vs_func_vest_sites}
 	\end{figure}
@@ -810,7 +816,7 @@ Task discovery is an important measure of long-term evolvability in that it quan
 We found that once we began rewarding the \textbf{expanded task set}, populations evolving in harsh changing environments discovered many fewer tasks that those evolving in benign changing environments (Wilcoxon Rank Sum Test: Z = 2.75, p $<$ 0.01) (Fig~\ref{fig:postreward_task_discovery}). We hypothesize that this effect is due to the relative differences in the strength of selection between the harsh changing environment and the directional selection toward the \textbf{expanded task set}. 
 %=[FIGURE - postreward task discovery]
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/LTE/lte-simple-post_reward_task_discovery.png}
+	\includegraphics[width=0.95\columnwidth]{figures/LTE/fig15.eps}
 	\caption{\textbf{Number of new expanded task set tasks discovered post-reward}. The left plot shows a time-series of the number of non-ephemeral tasks discovered by populations by each treatment. The right plot shows the number of tasks discovered at the end of the experiments. While the individual values overlap their neigbors, the top and bottom-most treatments (Benign and Harsh) are significantly different from each other (Wilcoxon Rank Sum Test: Z = 2.75, p $<$ 0.01). %
 	}
 	\label{fig:postreward_task_discovery}
@@ -835,8 +841,12 @@ Indeed, we found that the HarshQuiescent treatment has a much higher task discov
 \subsubsection*{Harsh changing environments drive populations across the mutational landscape}
 %=[FIGURE - overall task discovery]
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/LTE/lte-simple-overall_task_discovery.png}
-	\caption{\textbf{Number of new expanded task set tasks discovered over the whole experiment}. The left plot shows a time-series of all new tasks discovered over the course of the entire run, including non-rewarded \textbf{expanded task-set} tasks. The right-hand plot shows the final count at the end of the run. Before we introduce rewards for performing the \textbf{expanded task-set} tasks, the harsh changing environment discovers far more new tasks (Mdn = 28.0, CI 95\% [27.0, 30.0]) than either of the other treatments (Mdn = 22.0, CI 95\% [22.0, 23.0]) (Wilcoxon Rank Sum Test: Z = 8.61, p $<<$ 0.001). These tasks appear despite no reward being given for performing any of the \textbf{expanded task-set} in the first part of the experiment. %
+	\includegraphics[width=0.95\columnwidth]{figures/LTE/fig16.eps}
+	\caption{\textbf{Number of new expanded task set tasks discovered over the whole experiment}. The left plot shows a time-series of all new tasks discovered over the course of the entire run, including non-rewarded \textbf{expanded task-set} tasks. The right-hand plot shows the final count at the end of the run. Before we introduce rewards for performing the \textbf{expanded task-set} tasks, the harsh changing environment discovers far more new tasks (Mdn = 28.0, CI 95\% [27.0, 30.0]) than either of the other treatments (Mdn = 22.0, CI 95\% [22.0, 23.0]) (Wilcoxon Rank Sum Test: Z = 8.61, p $<<$ 0.001). These tasks appear despite no reward being given for performing any of the \textbf{expanded task-set} in the first part of the experiment.  %\hl{
+	Note that while Fig~%}
+	\ref{fig:postreward_task_discovery} %\hl{
+	shows that the Benign environment leads to more task discovery than the Harsh environment does after the environmental change to the Logic-77 rewards, that phase is only the second half of this figure; the Harsh environment leads to substantially more tasks discovered prior to these tasks being rewarded.
+%	}
 	}
 	\label{fig:simple-overall_task_discovery}
 	\end{figure}
@@ -851,7 +861,7 @@ In addition to task discovery, task performance is another important measure of 
 
 	%=[FIGURE - postreward task performance]
 	\begin{figure}[!h]
-	\includegraphics[width=0.95\columnwidth]{figures/LTE/lte-simple-task_performance.png}
+	\includegraphics[width=0.95\columnwidth]{figures/LTE/fig17.eps}
 	\caption{\textbf{Number of distinct tasks performed}. The left plot shows a time-series of the number of distinct tasks performed by the treatment populations over time. The right-had plot shows the number of tasks performed at the end of the experiments. The harsh changing environment treatment performs substantially and significantly fewer tasks than any of the benign or control treatments (Wilcoxon Rank Sum Test: Z = -11.22 and -11.15 respectively, p $<<$ 0.001). The benign treatments perform best, but the differences are not statistically significantly different than the control (Kruskal-Wallis: H(2) = 2.76, p = 0.25). %
 	}
 	\label{fig:lte-simple-task_performance}
@@ -888,28 +898,521 @@ Ultimately, however, as alluded to above, cyclic changing environments only re-t
 Even so, there must exist methods of exploring genotype space that do not suffer from these limitations at all.
 For example, perhaps repeated bottlenecking of populations could promote faster traversal of the fitness landscape in quasi-random directions. More ambitiously, perhaps these kinds of environments could be coupled with dynamically increasing open-ended complexity goals, or divergent selection mechanisms such as negative frequency dependence to promote the maintenance of diversity in evolving populations.
 
+%=how is this applicable in the real world?
+%\begin{mdframed}[hidealllines=true,backgroundcolor=yellow,innerleftmargin=3pt,innerrightmargin=3pt,leftmargin=-3pt,rightmargin=-3pt]
+Environmental fluctuations such as those presented here in the Harsh environment are not necessarily rare in biology.  It is important to note that the adaptive value of traits is not solely a function of those traits, but also of the environment.  A common laboratory example is that of the malT transporter in \textit{E. coli}.  \textit{E. coli} uses the lamB transporter to import maltodextrins such as maltose into the cell, where they can serve as carbon sources for growth.  The bacteriophage lambda – a virus that infects \textit{E. coli} – also makes use of the lamB transporter to infect its host\cite{boos_maltose/maltodextrin_1998,meyer_repeatability_2012-1}.  As such, lamB expression is beneficial in an environment with abundant maltose and no lambda phage, and harmful in an environment with lambda phage and no maltose.
+
+These evolutionary tradeoffs are not restricted to laboratory conditions.  For instance, many cave-dwelling species lack functional eyes, despite being descendants of species with eyes\cite{krishnan_cavefish_2017}.  Loss of eyes may be advantageous in dark environments.  For example eyeless fish do not bear the energetic cost of the requisite neural tissue\cite{moran_energetic_2015}, allowing them to direct resources to other traits more beneficial in this environment.  Although there remains debate about the relative contributions of drift and selection in this process\cite{lahti_relaxed_2009,retaux_evolution_2013}, mounting evidence suggests that eye loss is adaptive in these environments, rather than solely the result of a loss of purifying selection\cite{retaux_evolution_2013,krishnan_cavefish_2017}.
+%\end{mdframed}
+
 %=understanding is vital, conclusion paragraph
 Understanding the mechanisms by which select environmental conditions alter fitness landscapes is vital to understanding the forces that promote evolvability and increase complexity. In particular, understanding the role of vestigial sites may help us untangle how robustness can promote evolvability. Are these vestigial sites merely inactive remnants, reservoirs of function, or are they part of a complex compensatory framework supporting and buffering the expression of the phenotype? Or all of these things? Changing environments provide one view into these dynamics, but we must explore further to find other mechanisms for exploring and exploiting genotype space.
 
 \section*{Acknowledgments}
 We would like to thank Alex Lalejini for helpful discussions and comments about the relationship between phenotypic plasticity and contingency loci, Joshua Nahum for discussions of experiments in changing environments, and Emily Dolson, Brian Goldman, and Anya Vostinar for their comments on early manuscript drafts.
-This material is based in part upon work supported by the National Science Foundation under Cooperative Agreement No. DBI-0939454 to CO and a Graduate Research Fellowship to RCK. Any opinions, findings, and conclusions or recommendations expressed in this material are those of the author(s) and do not necessarily reflect the views of the National Science Foundation.
 
-%\bibliographystyle{apalike}
-\bibliography{changing_env}
 
-\section*{Supplemental Materials}
-\subsection*{Sampled Nearby Mutational Landscape}\label{ss:sampled_nearby}
-As noted in equation \ref{eq:phenotypic_diffusion_rate}, the mutants in the nearby mutational landscape include those that have more than one mutation. However, for completeness, we performed an exhaustive landscaping of the single-step mutational landscape, which, by definition, only includes mutants with a single mutation (see Figure \ref{fig:CCE_single_step}). In order to verify that our results are indeed representative of the expected genomic and phenotypic diffusion rates, we sampled the mutants in the nearby mutational landscape using all naturally occurring mutations, including multiple mutations in a single mutant.
 
-%=[FIGURE - Frac 1-step vs Frac Sampled]
-	\begin{figure}[!h] %% FIGURE 6
-	\includegraphics[width=0.95\columnwidth]{figures/CE/CCE_frac_1step__box.png}
-    \includegraphics[width=0.95\columnwidth]{figures/CE/CCE_sampled_1step__box.png}
-	\caption{\textbf{A survey of the single-step and sampled mutational neighborhoods} around organisms that performed the fluctuating task. The results are qualitatively identical to each other.   
-	}\label{fig:CCE_sample_step}
-	\end{figure}
+%%%%%%%%% THE BIBLIOGRAPHY %%%%%%%%%% -- pasted in per instructions
+% from  https://journals.plos.org/plosgenetics/s/latex
+% retrieved from the .bbl file
+%%%\bibliography{changing_env}
+\begin{thebibliography}{10}
 
-Our results (see figure \ref{fig:CCE_sample_step})  were virtually identical, showing that the sampling approach and the exhaustive landscaping produce qualitatively indistinguishable results.
+\bibitem{smith_group_1964}
+Smith JM.
+\newblock Group selection and kin selection.
+\newblock Nature. 1964;201(4924):1145.
+
+\bibitem{smith_fine-scale_2016}
+Smith J, Strassmann JE, Queller DC.
+\newblock Fine-scale spatial ecology drives kin selection relatedness among
+  cooperating amoebae.
+\newblock Evolution. 2016;70(4):848--859.
+
+\bibitem{aubert-kato_hunger_2015}
+Aubert-Kato N, Witkowski O, Ikegami T.
+\newblock The {Hunger} {Games}: {Embodied} agents evolving foraging strategies
+  on the frugal-greedy spectrum.
+\newblock In: Proceedings of the {European} {Conference} on {Artificial}
+  {Life}; 2015. p. 357--364.
+
+\bibitem{trivers_evolution_1971}
+Trivers RL.
+\newblock The evolution of reciprocal altruism.
+\newblock The Quarterly review of biology. 1971;46(1):35--57.
+
+\bibitem{ale_evolution_2013}
+Ale SB, Brown JS, Sullivan AT.
+\newblock Evolution of cooperation: combining kin selection and reciprocal
+  altruism into matrix games with social dilemmas.
+\newblock PloS one. 2013;8(5):e63761.
+
+\bibitem{friman_relative_2016}
+Friman VP, Dupont A, Bass D, Murrell DJ, Bell T.
+\newblock Relative importance of evolutionary dynamics depends on the
+  composition of microbial predator–prey community.
+\newblock The ISME journal. 2016;10(6):1352.
+
+\bibitem{dobramysl_stochastic_2018}
+Dobramysl U, Mobilia M, Pleimling M, Täuber UC.
+\newblock Stochastic population dynamics in spatially extended predator–prey
+  systems.
+\newblock Journal of Physics A: Mathematical and Theoretical.
+  2018;51(6):063001.
+
+\bibitem{zaman_coevolution_2014}
+Zaman L, Meyer JR, Devangam S, Bryson DM, Lenski RE, Ofria C.
+\newblock Coevolution drives the emergence of complex traits and promotes
+  evolvability.
+\newblock PLoS Biol. 2014;12(12):e1002023.
+
+\bibitem{pigliucci_phenotypic_2001}
+Pigliucci M.
+\newblock Phenotypic plasticity: beyond nature and nurture.
+\newblock JHU Press; 2001.
+
+\bibitem{ofria_evolutionary_2016}
+Ofria C, Lalejini A.
+\newblock The evolutionary origins of phenotypic plasticity.
+\newblock In: Proceedings of the {Artificial} {Life} {Conference} 2016 13. MIT
+  Press; 2016. p. 372--379.
+
+\bibitem{lalejini_gene_2017}
+Lalejini A, Wiser MJ, Ofria C.
+\newblock Gene {Duplications} {Drive} the {Evolution} of {Complex} {Traits} and
+  {Regulation}.
+\newblock In: {ECAL} 2017 the 14th {European} {Conference} on {Aritifical}
+  {Life}. MIT Press; 2017. p. 257--264.
+
+\bibitem{odling-smee_niche_1996}
+Odling-Smee FJ, Laland KN, Feldman MW.
+\newblock Niche {Construction}.
+\newblock The American Naturalist. 1996;147(4):641--648.
+\newblock doi:{10.1086/285870}.
+
+\bibitem{rocabert_beware_2017}
+Rocabert C, Knibbe C, Consuegra J, Schneider D, Beslon G.
+\newblock Beware batch culture: {Seasonality} and niche construction predicted
+  to favor bacterial adaptive diversification.
+\newblock PLOS Computational Biology. 2017;13(3):e1005459.
+\newblock doi:{10.1371/journal.pcbi.1005459}.
+
+\bibitem{paine_note_1969}
+Paine RT.
+\newblock A {Note} on {Trophic} {Complexity} and {Community} {Stability}.
+\newblock The American Naturalist. 1969;103(929):91--93.
+
+\bibitem{hale_sarah_l._ecosystem-level_2018}
+{Hale Sarah L }, {Koprowski John L }.
+\newblock Ecosystem-level effects of keystone species reintroduction: a
+  literature review.
+\newblock Restoration Ecology. 2018;26(3):439--445.
+\newblock doi:{10.1111/rec.12684}.
+
+\bibitem{khan_negative_2011}
+Khan AI, Dinh DM, Schneider D, Lenski RE, Cooper TF.
+\newblock Negative {Epistasis} {Between} {Beneficial} {Mutations} in an
+  {Evolving} {Bacterial} {Population}.
+\newblock Science. 2011;332(6034):1193--1196.
+\newblock doi:{10.1126/science.1203801}.
+
+\bibitem{szendro_quantitative_2013}
+Szendro IG, Schenk MF, Franke J, Krug J, Visser JAGMd.
+\newblock Quantitative analyses of empirical fitness landscapes.
+\newblock Journal of Statistical Mechanics: Theory and Experiment.
+  2013;2013(01):P01005.
+\newblock doi:{10.1088/1742-5468/2013/01/P01005}.
+
+\bibitem{weinreich_darwinian_2006}
+Weinreich DM, Delaney NF, DePristo MA, Hartl DL.
+\newblock Darwinian evolution can follow only very few mutational paths to
+  fitter proteins.
+\newblock Science. 2006;312(5770):111--114.
+
+\bibitem{nahum_tortoisehare_2015}
+Nahum JR, Godfrey-Smith P, Harding BN, Marcus JH, Carlson-Stevermer J, Kerr B.
+\newblock A tortoise–hare pattern seen in adapting structured and
+  unstructured populations suggests a rugged fitness landscape in bacteria.
+\newblock Proceedings of the National Academy of Sciences.
+  2015;112(24):7530--7535.
+\newblock doi:{10.1073/pnas.1410631112}.
+
+\bibitem{merz_fitness_2000}
+Merz P, Freisleben B.
+\newblock Fitness landscape analysis and memetic algorithms for the quadratic
+  assignment problem.
+\newblock IEEE Transactions on Evolutionary Computation. 2000;4(4):337--352.
+\newblock doi:{10.1109/4235.887234}.
+
+\bibitem{humeau_paradiseo-mo:_2013}
+Humeau J, Liefooghe A, Talbi EG, Verel S.
+\newblock {ParadisEO}-{MO}: from fitness landscape analysis to efficient local
+  search algorithms.
+\newblock Journal of Heuristics. 2013;19(6):881--915.
+\newblock doi:{10.1007/s10732-013-9228-8}.
+
+\bibitem{kallel_theoretical_2013}
+Kallel L, Naudts B, Rogers A.
+\newblock Theoretical aspects of evolutionary computing.
+\newblock Springer Science \& Business Media; 2013.
+\newblock Available from:
+  \url{https://books.google.com/books?hl=en&lr=&id=keypCAAAQBAJ&oi=fnd&pg=PA1&dq=Kallel,+Leila,+Bart+Naudts,+and+Alex+Rogers,+eds.+Theoretical+aspects+of+evolutionary+computing.+Springer+Science+and+Business+Media,+2013.&ots=1feRsH_Wq3&sig=P8u0GYTiiPT0e2RFsTY0cKECdiI}.
+
+\bibitem{gavrilets_fitness_2004}
+Gavrilets S.
+\newblock Fitness landscapes and the origin of species ({MPB}-41).
+\newblock Princeton University Press Princeton, NJ; 2004.
+\newblock Available from: \url{http://press.princeton.edu/titles/7799.html}.
+
+\bibitem{wilke_evolution_2001}
+Wilke CO, Wang JL, Ofria C, Lenski RE, Adami C.
+\newblock Evolution of digital organisms at high mutation rates leads to
+  survival of the flattest.
+\newblock Nature. 2001;412(6844):331--3.
+\newblock doi:{http://dx.doi.org.proxy2.cl.msu.edu/10.1038/35085569}.
+
+\bibitem{misevic_sexual_2006}
+Misevic D, Ofria C, Lenski RE.
+\newblock Sexual {Reproduction} {Reshapes} the {Genetic} {Architecture} of
+  {Digital} {Organisms}.
+\newblock Proceedings Biological Sciences / The Royal Society.
+  2006;273(1585):457--464.
+\newblock doi:{10.1098/rspb.2005.3338}.
+
+\bibitem{misevic_experiments_2010}
+Misevic D, Ofria C, Lenski RE.
+\newblock Experiments with {Digital} {Organisms} on the {Origin} and
+  {Maintenance} of {Sex} in {Changing} {Environments}.
+\newblock The Journal of Heredity. 2010;101(suppl 1):S46--S54.
+\newblock doi:{10.1093/jhered/esq017}.
+
+\bibitem{meyer_repeatability_2012}
+Meyer JR, Dobias DT, Weitz JS, Barrick JE, Quick RT, Lenski RE.
+\newblock Repeatability and {Contingency} in the {Evolution} of a {Key}
+  {Innovation} in {Phage} {Lambda}.
+\newblock Science. 2012;335(6067):428--432.
+\newblock doi:{10.1126/science.1214449}.
+
+\bibitem{martin_fitness_2006}
+Martin G, Lenormand T, Goodnight C.
+\newblock The fitness effect of mutations across environments: a survey in
+  light of fitness landscape models.
+\newblock Evolution. 2006;60(12):2413--2427.
+\newblock doi:{10.1554/06-162.1}.
+
+\bibitem{kvitek_reciprocal_2011}
+Kvitek DJ, Sherlock G.
+\newblock Reciprocal {Sign} {Epistasis} between {Frequently} {Experimentally}
+  {Evolved} {Adaptive} {Mutations} {Causes} a {Rugged} {Fitness} {Landscape}.
+\newblock PLOS Genetics. 2011;7(4):e1002056.
+\newblock doi:{10.1371/journal.pgen.1002056}.
+
+\bibitem{pigliucci_is_2008}
+Pigliucci M.
+\newblock Is evolvability evolvable?
+\newblock Nature Reviews Genetics. 2008;9(1):75--82.
+\newblock doi:{10.1038/nrg2278}.
+
+\bibitem{fisher_genetical_1930}
+Fisher RA.
+\newblock The genetical theory of natural selection.
+\newblock Oxford: Clarendon Press; 1930.
+\newblock Available from:
+  \url{http://www.biodiversitylibrary.org/bibliography/27468}.
+
+\bibitem{houle_comparing_1992}
+Houle D.
+\newblock Comparing {Evolvability} and {Variability} of {Quantitative}
+  {Traits}.
+\newblock Genetics. 1992;130(1):195--204.
+
+\bibitem{belle_code_2002}
+Belle TV, Ackley DH.
+\newblock Code {Factoring} {And} {The} {Evolution} {Of} {Evolvability}.
+\newblock In: Proceedings of the {Genetic} and {Evolutionary} {Computation}
+  {Conference}. {GECCO} '02. San Francisco, CA, USA: Morgan Kaufmann Publishers
+  Inc.; 2002. p. 1383--1390.
+\newblock Available from:
+  \url{http://dl.acm.org/citation.cfm?id=646205.682302}.
+
+\bibitem{gunter_p._wagner_perspective:_1996}
+{Gunter P  Wagner}, Altenberg L.
+\newblock Perspective: complex adaptations and the evolution of evolvability.
+\newblock Evolution. 1996; p. 967--976.
+
+\bibitem{andreas_wagner_robustness_2005}
+{Andreas Wagner}.
+\newblock Robustness, evolvability, and neutrality.
+\newblock FEBS letters. 2005;579(8):1772--1778.
+\newblock doi:{10.1016/j.febslet.2005.01.063}.
+
+\bibitem{kitano_biological_2004}
+Kitano H.
+\newblock Biological robustness.
+\newblock Nature Reviews Genetics. 2004;5(11):826--837.
+\newblock doi:{10.1038/nrg1471}.
+
+\bibitem{alberch_genes_1991}
+Alberch P.
+\newblock From genes to phenotype: dynamical systems and evolvability.
+\newblock Genetica. 1991;84(1):5--11.
+\newblock doi:{10.1007/BF00123979}.
+
+\bibitem{brookfield_evolution:_2001}
+Brookfield JFY.
+\newblock Evolution: {The} evolvability enigma.
+\newblock Current Biology. 2001;11(3):R106--R108.
+\newblock doi:{10.1016/S0960-9822(01)00041-0}.
+
+\bibitem{kirschner_evolvability_1998}
+Kirschner M, Gerhart J.
+\newblock Evolvability.
+\newblock Proceedings of the National Academy of Sciences.
+  1998;95(15):8420--8427.
+
+\bibitem{smith_major_1995}
+Smith JM, Szathmary E.
+\newblock The major evolutionary transitions.
+\newblock Nature. 1995;374(6519):227--32.
+
+\bibitem{bayliss_simple_2001}
+Bayliss CD, Field D, Moxon ER.
+\newblock The simple sequence contingency loci of {Haemophilus} influenzae and
+  {Neisseria} meningitidis.
+\newblock Journal of Clinical Investigation. 2001;107(6):657--666.
+\newblock doi:{10.1172/JCI12557}.
+
+\bibitem{andreas_wagner_robustness_2008}
+{Andreas Wagner}.
+\newblock Robustness and evolvability: a paradox resolved.
+\newblock Proceedings of the Royal Society of London B: Biological Sciences.
+  2008;275(1630):91--100.
+
+\bibitem{lee_rate_2012}
+Lee H, Popodi E, Tang H, Foster PL.
+\newblock Rate and molecular spectrum of spontaneous mutations in the bacterium
+  {Escherichia} coli as determined by whole-genome sequencing.
+\newblock Proceedings of the National Academy of Sciences.
+  2012;109(41):E2774--E2783.
+\newblock doi:{10.1073/pnas.1210309109}.
+
+\bibitem{lind_whole-genome_2008}
+Lind PA, Andersson DI.
+\newblock Whole-genome mutational biases in bacteria.
+\newblock Proceedings of the National Academy of Sciences.
+  2008;105(46):17878--17883.
+\newblock doi:{10.1073/pnas.0804445105}.
+
+\bibitem{carter_role_2005}
+Carter AJR, Hermisson J, Hansen TF.
+\newblock The role of epistatic gene interactions in the response to selection
+  and the evolution of evolvability.
+\newblock Theoretical Population Biology. 2005;68(3):179--196.
+\newblock doi:{10.1016/j.tpb.2005.05.002}.
+
+\bibitem{ofria_evolution_2002}
+Ofria C, Adami C.
+\newblock Evolution of genetic organization in digital organisms.
+\newblock In: Evolution as {Computation}. Springer; 2002. p. 296--313.
+\newblock Available from:
+  \url{http://link.springer.com/chapter/10.1007/978-3-642-55606-7_15}.
+
+\bibitem{wright_evolution_1931}
+Wright S.
+\newblock Evolution in {Mendelian} {Populations}.
+\newblock Genetics. 1931;16(2):97--159.
+
+\bibitem{kashtan_varying_2007}
+Kashtan N, Noor E, Alon U.
+\newblock Varying environments can speed up evolution.
+\newblock Proceedings of the National Academy of Sciences.
+  2007;104(34):13711--13716.
+\newblock doi:{10.1073/pnas.0611630104}.
+
+\bibitem{parter_facilitated_2008}
+Parter M, Kashtan N, Alon U.
+\newblock Facilitated {Variation}: {How} {Evolution} {Learns} from {Past}
+  {Environments} {To} {Generalize} to {New} {Environments}.
+\newblock PLOS Computational Biology. 2008;4(11):e1000206.
+\newblock doi:{10.1371/journal.pcbi.1000206}.
+
+\bibitem{connelly_negative_2015}
+Connelly BD, Dickinson KJ, Hammarlund SP, Kerr B.
+\newblock Negative niche construction favors the evolution of cooperation.
+\newblock Evolutionary Ecology. 2015; p. 1--17.
+\newblock doi:{10.1007/s10682-015-9803-6}.
+
+\bibitem{mcclintock_significance_1993}
+McClintock B.
+\newblock The significance of responses of the genome to challenge.
+\newblock Singapore: World Scientific Pub. Co; 1993.
+\newblock Available from:
+  \url{https://books.google.com/books?hl=en&lr=&id=oR8hpcQwc2QC&oi=fnd&pg=PA180&dq=McClintock,+B.+1984.+The+significance+of+responses+of+the+genome+to+challenge.+Science.+226:792%E2%80%93801.&ots=Av9wjVNxzX&sig=WFtZazS_zJuaGR8xnHFhnHpwrqM}.
+
+\bibitem{crombach_evolution_2008}
+Crombach A, Hogeweg P.
+\newblock Evolution of {Evolvability} in {Gene} {Regulatory} {Networks}.
+\newblock PLOS Comput Biol. 2008;4(7):e1000112.
+\newblock doi:{10.1371/journal.pcbi.1000112}.
+
+\bibitem{goddard_sex_2005}
+Goddard MR, Godfray HCJ, Burt A.
+\newblock Sex increases the efficacy of natural selection in experimental yeast
+  populations.
+\newblock Nature. 2005;434(7033):636+.
+
+\bibitem{wilder_reconciling_2015}
+Wilder B, Stanley K.
+\newblock Reconciling explanations for the evolution of evolvability.
+\newblock Adaptive Behavior. 2015;23(3):171--179.
+
+\bibitem{lehman_critical_2016}
+Lehman J, Wilder B, Stanley KO.
+\newblock On the {Critical} {Role} of {Divergent} {Selection} in
+  {Evolvability}.
+\newblock Frontiers in Robotics and AI. 2016;3.
+\newblock doi:{10.3389/frobt.2016.00045}.
+
+\bibitem{mckinley_harnessing_2008}
+McKinley P, Cheng B, Ofria C, Knoester D, Beckmann B, Goldsby H.
+\newblock Harnessing {Digital} {Evolution}.
+\newblock Computer. 2008;41(1):54--63.
+\newblock doi:{10.1109/MC.2008.17}.
+
+\bibitem{dennett_darwins_1995}
+Dennett DC.
+\newblock Darwin's dangerous idea.
+\newblock The Sciences. 1995;35(3):34--40.
+
+\bibitem{ryan_evolution_1953}
+Ryan FJ.
+\newblock Evolution observed.
+\newblock Scientific American. 1953;189:78--82.
+
+\bibitem{lenski_long-term_1991}
+Lenski RE, Rose MR, Simpson SC, Tadler SC.
+\newblock Long-term experimental evolution in {Escherichia} coli. {I}.
+  {Adaptation} and divergence during 2,000 generations.
+\newblock The American Naturalist. 1991; p. 1315--1341.
+
+\bibitem{anderson_outcrossing_2010}
+Anderson JL, Morran LT, Phillips PC.
+\newblock Outcrossing and the {Maintenance} of {Males} within {C}. elegans
+  {Populations}.
+\newblock Journal of Heredity. 2010; p. esq003.
+\newblock doi:{10.1093/jhered/esq003}.
+
+\bibitem{stearns_experimental_2000}
+Stearns SC, Ackermann M, Doebeli M, Kaiser M.
+\newblock Experimental evolution of aging, growth, and reproduction in
+  fruitflies.
+\newblock Proceedings of the National Academy of Sciences.
+  2000;97(7):3309--3313.
+\newblock doi:{10.1073/pnas.97.7.3309}.
+
+\bibitem{lenski_evolutionary_2003}
+Lenski RE, Ofria C, Pennock RT, Adami C.
+\newblock The evolutionary origin of complex features.
+\newblock Nature. 2003;423(6936):139--44.
+
+\bibitem{codoner_fittest_2006}
+Codoñer FM, Darós JA, Solé RV, Elena SF.
+\newblock The {Fittest} versus the {Flattest}: {Experimental} {Confirmation} of
+  the {Quasispecies} {Effect} with {Subviral} {Pathogens}.
+\newblock PLOS Pathogens. 2006;2(12):e136.
+\newblock doi:{10.1371/journal.ppat.0020136}.
+
+\bibitem{canino-koning_evolution_2016}
+Canino-Koning R, Wiser MJ, Ofria C.
+\newblock The {Evolution} of {Evolvability}: {Changing} {Environments}
+  {Promote} {Rapid} {Adaptation} in {Digital} {Organisms}.
+\newblock In: Proceedings of the {Artificial} {Life} {Conference} 2016. The MIT
+  Press; 2016. p. 268--275.
+\newblock Available from:
+  \url{https://mitpress.mit.edu/sites/default/files/titles/content/conf/alife16/ch047.html}.
+
+\bibitem{wilcoxon_individual_1945}
+Wilcoxon F.
+\newblock Individual {Comparisons} by {Ranking} {Methods}.
+\newblock Biometrics Bulletin. 1945;1(6):80--83.
+\newblock doi:{10.2307/3001968}.
+
+\bibitem{kruskal_use_1952}
+Kruskal WH, Wallis WA.
+\newblock Use of {Ranks} in {One}-{Criterion} {Variance} {Analysis}.
+\newblock Journal of the American Statistical Association.
+  1952;47(260):583--621.
+\newblock doi:{10.1080/01621459.1952.10483441}.
+
+\bibitem{rice_analyzing_1989}
+Rice WR.
+\newblock Analyzing tables of statistical tests.
+\newblock Evolution. 1989;43(1):223--225.
+
+\bibitem{spearman_proof_1904}
+Spearman C.
+\newblock The proof and measurement of association between two things.
+\newblock The American journal of psychology. 1904;15(1):72--101.
+
+\bibitem{jones_scipy:_2014}
+Jones E, Oliphant T, Peterson P.
+\newblock {SciPy}: open source scientific tools for {Python}. 2014;.
+
+\bibitem{mckinney_data_2010}
+McKinney W.
+\newblock Data structures for statistical computing in python.
+\newblock In: Proceedings of the 9th {Python} in {Science} {Conference}. vol.
+  445. SciPy Austin, TX; 2010. p. 51--56.
+
+\bibitem{vanrossum_python_2010}
+VanRossum G, Drake FL.
+\newblock The python language reference.
+\newblock Python Software Foundation Amsterdam, Netherlands; 2010.
+
+\bibitem{boos_maltose/maltodextrin_1998}
+Boos W, Shuman H.
+\newblock Maltose/maltodextrin system of {Escherichia} coli: transport,
+  metabolism, and regulation.
+\newblock Microbiology and molecular biology reviews: MMBR.
+  1998;62(1):204--229.
+
+\bibitem{meyer_repeatability_2012-1}
+Meyer JR, Dobias DT, Weitz JS, Barrick JE, Quick RT, Lenski RE.
+\newblock Repeatability and contingency in the evolution of a key innovation in
+  phage lambda.
+\newblock Science (New York, NY). 2012;335(6067):428--432.
+\newblock doi:{10.1126/science.1214449}.
+
+\bibitem{krishnan_cavefish_2017}
+Krishnan J, Rohner N.
+\newblock Cavefish and the basis for eye loss.
+\newblock Philosophical Transactions of the Royal Society of London Series B,
+  Biological Sciences. 2017;372(1713).
+\newblock doi:{10.1098/rstb.2015.0487}.
+
+\bibitem{moran_energetic_2015}
+Moran D, Softley R, Warrant EJ.
+\newblock The energetic cost of vision and the evolution of eyeless {Mexican}
+  cavefish.
+\newblock Science Advances. 2015;1(8).
+\newblock doi:{10.1126/sciadv.1500363}.
+
+\bibitem{lahti_relaxed_2009}
+Lahti DC, Johnson NA, Ajie BC, Otto SP, Hendry AP, Blumstein DT, et~al.
+\newblock Relaxed selection in the wild.
+\newblock Trends in Ecology \& Evolution. 2009;24(9):487--496.
+\newblock doi:{10.1016/j.tree.2009.03.010}.
+
+\bibitem{retaux_evolution_2013}
+Rétaux S, Casane D.
+\newblock Evolution of eye development in the darkness of caves: adaptation,
+  drift, or both?
+\newblock EvoDevo. 2013;4(1):26.
+\newblock doi:{10.1186/2041-9139-4-26}.
+
+\end{thebibliography}
+
+
 
 \end{document}
